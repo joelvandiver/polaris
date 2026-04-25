@@ -30,15 +30,35 @@
         gap: 1rem;
       }
 
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+      }
+
+      .brand-mark {
+        width: 2rem;
+        height: 2rem;
+        flex: 0 0 auto;
+      }
+
+      .brand-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 0.08rem;
+      }
+
       header h1 {
-        font-size: 1.3rem;
-        letter-spacing: 0.08em;
-        color: #a0c4ff;
+        font-size: 1.08rem;
+        line-height: 1.05;
+        letter-spacing: 0.02em;
+        color: #dfe8ff;
+        font-weight: 650;
       }
 
       header .subtitle {
         font-size: 0.8rem;
-        color: #667;
+        color: #7681a4;
       }
 
       #toolbar {
@@ -156,8 +176,28 @@
   </head>
   <body>
     <header>
-      <h1>⭐ Polaris</h1>
-      <span class="subtitle">Geometric Vector Graphics · Rust + WASM</span>
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+          <defs>
+            <linearGradient id="brand-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f8fbff" />
+              <stop offset="55%" stop-color="#a0c4ff" />
+              <stop offset="100%" stop-color="#5c7cff" />
+            </linearGradient>
+          </defs>
+          <circle cx="24" cy="24" r="20" fill="none" stroke="#24304f" stroke-width="1.5" />
+          <circle cx="24" cy="24" r="11.5" fill="none" stroke="#24304f" stroke-width="1" />
+          <path
+            d="M24 6 L27.8 20.2 L42 24 L27.8 27.8 L24 42 L20.2 27.8 L6 24 L20.2 20.2 Z"
+            fill="url(#brand-glow)"
+          />
+          <circle cx="24" cy="24" r="3.2" fill="#0d0d1a" stroke="#d9e7ff" stroke-width="1.2" />
+        </svg>
+        <div class="brand-copy">
+          <h1>Polaris</h1>
+          <span class="subtitle">Geometric Vector Graphics</span>
+        </div>
+      </div>
     </header>
 
     <div id="toolbar">
