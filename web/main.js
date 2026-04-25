@@ -15,6 +15,7 @@ const sceneEl = document.getElementById("scene");
 const viewportEl = document.getElementById("viewport");
 const statusEl = document.getElementById("status");
 const elementListEl = document.getElementById("element-list");
+const exportSvgButton = document.getElementById("btn-export-svg");
 
 let editor;
 let appState;
@@ -62,6 +63,10 @@ document.getElementById("btn-clear").addEventListener("click", () => {
   syncState();
   render();
   setStatus(status);
+});
+
+exportSvgButton.addEventListener("click", () => {
+  openSvgInNewTab();
 });
 
 function hexToRgb(hex) {
@@ -270,6 +275,40 @@ function setStatus(message) {
 function syncState() {
   appState = JSON.parse(editor.to_json());
   updateSidebar();
+}
+
+function openSvgInNewTab() {
+  const svgMarkup = buildStandaloneSvg();
+  const blob = new Blob([svgMarkup], { type: "image/svg+xml;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const opened = window.open(url, "_blank", "noopener,noreferrer");
+
+  if (!opened) {
+    URL.revokeObjectURL(url);
+    setStatus("Pop-up blocked while opening the SVG");
+    return;
+  }
+
+  setTimeout(() => URL.revokeObjectURL(url), 60_000);
+  setStatus("Opened the current SVG in a new tab");
+}
+
+function buildStandaloneSvg() {
+  const width = viewportEl.clientWidth;
+  const height = viewportEl.clientHeight;
+  const sceneMarkup = sceneEl.innerHTML;
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="${SVG_NS}" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
+  <defs>
+    <pattern id="polaris-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a1a30" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="#0d0d1a"/>
+  <rect width="100%" height="100%" fill="url(#polaris-grid)"/>
+  ${sceneMarkup}
+</svg>`;
 }
 
 function loadDemoScene() {
