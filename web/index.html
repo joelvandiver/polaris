@@ -104,6 +104,31 @@
         overflow: hidden;
       }
 
+      #tool-palette {
+        width: 64px;
+        background: #101021;
+        border-right: 1px solid #2a2a4a;
+        padding: 0.7rem 0.45rem;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.45rem;
+      }
+
+      #tool-palette button {
+        width: 100%;
+        min-height: 44px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #tool-palette button svg {
+        width: 1.05rem;
+        height: 1.05rem;
+      }
+
       #viewport {
         flex: 1;
         position: relative;
@@ -201,10 +226,6 @@
     </header>
 
     <div id="toolbar">
-      <button id="btn-point" class="active" title="Place a point">Point</button>
-      <button id="btn-segment" title="Draw a segment">Segment</button>
-      <button id="btn-circle" title="Draw a circle">Circle</button>
-      <button id="btn-line" title="Draw an infinite line">Line</button>
       <span style="flex:1"></span>
       <label>Stroke</label>
       <input type="color" id="stroke-color" value="#a0c4ff" />
@@ -217,6 +238,30 @@
     </div>
 
     <div id="main">
+      <div id="tool-palette" aria-label="Drawing tools">
+        <button id="btn-point" class="active" title="Place a point" aria-label="Place a point">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="3.5" fill="currentColor" />
+          </svg>
+        </button>
+        <button id="btn-segment" title="Draw a segment" aria-label="Draw a segment">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="6" cy="18" r="2" fill="currentColor" />
+            <circle cx="18" cy="6" r="2" fill="currentColor" />
+            <path d="M7.4 16.6L16.6 7.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </button>
+        <button id="btn-circle" title="Draw a circle" aria-label="Draw a circle">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8" />
+          </svg>
+        </button>
+        <button id="btn-line" title="Draw an infinite line" aria-label="Draw an infinite line">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 20L20 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
       <div id="viewport">
         <svg id="scene" xmlns="http://www.w3.org/2000/svg"></svg>
       </div>
