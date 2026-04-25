@@ -177,11 +177,11 @@ impl Editor {
         let cy = self.scene.height() / 2.0;
         let r = self.scene.width().min(self.scene.height()) * 0.18;
 
-        let blue_stroke = Color::new(100, 180, 255, 255);
-        let blue_fill = Color::new(60, 80, 200, 40);
-        let gold_stroke = Color::new(255, 200, 60, 255);
-        let gold_fill = Color::new(200, 150, 0, 30);
-        let white_stroke = Color::new(220, 220, 255, 220);
+        let blue_stroke = Color::new(184, 220, 255, 255);
+        let blue_fill = Color::new(62, 88, 150, 36);
+        let gold_stroke = Color::new(255, 196, 120, 255);
+        let gold_fill = Color::new(140, 88, 36, 28);
+        let white_stroke = Color::new(238, 243, 255, 224);
         let transparent = Color::new(0, 0, 0, 0);
 
         self.scene.add_circle(
