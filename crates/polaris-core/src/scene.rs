@@ -93,6 +93,12 @@ impl Scene {
         self.height
     }
 
+    /// Update the viewport dimensions used by the renderer.
+    pub fn resize_viewport(&mut self, width: f64, height: f64) {
+        self.width = width;
+        self.height = height;
+    }
+
     /// Number of elements in the scene.
     pub fn len(&self) -> usize {
         self.elements.len()
