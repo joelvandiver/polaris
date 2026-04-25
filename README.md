@@ -25,7 +25,7 @@ performance for complex constructions.
 | `Circle` primitive | ✅ |
 | `Scene` – styled element container | ✅ |
 | `Style` / `Color` for visual customisation | ✅ |
-| Interactive HTML5 Canvas renderer | ✅ |
+| Interactive SVG renderer | ✅ |
 | Demo scene (Vesica Piscis) | ✅ |
 | Persistent undo / redo | 🔜 |
 | SVG export | 🔜 |
@@ -62,7 +62,7 @@ polaris/
 
 ```
 User click → main.js → Rust WASM (add geometry to Scene)
-                     ← scene.to_json() → Canvas 2D renderer
+                     ← scene.to_json() → SVG renderer
 ```
 
 ---
@@ -73,7 +73,7 @@ User click → main.js → Rust WASM (add geometry to Scene)
 - [x] Rust workspace with `wasm32-unknown-unknown` target
 - [x] Core geometry types with unit tests
 - [x] WASM bindings via `wasm-bindgen`
-- [x] Interactive canvas front-end
+- [x] Interactive SVG front-end
 - [x] Demo construction (Vesica Piscis)
 
 ### Milestone 2 – Construction Tools
@@ -160,7 +160,7 @@ cargo test
 | **Rust + WASM** | Near-native performance for geometry computations; strong type safety |
 | **wasm-bindgen** | Ergonomic JS↔Rust interop with TypeScript declarations |
 | **serde + JSON** | Simple, debuggable scene serialisation without complex WASM memory sharing |
-| **HTML5 Canvas** | Portable, zero-dependency renderer for the MVP |
+| **SVG** | Native vector rendering, inspectable DOM nodes, and simpler export paths |
 | **No JS framework** | Keeps the build pipeline simple; a framework (e.g. Svelte) can be added later |
 
 ---

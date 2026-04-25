@@ -32,12 +32,12 @@ impl Tool {
     }
 
     fn selection_status(self) -> String {
-        format!("Tool: {} - click on the canvas", self.as_str())
+        format!("Tool: {} - click in the workspace", self.as_str())
     }
 
     fn pending_status(self) -> &'static str {
         match self {
-            Self::Point => "Click on the canvas",
+            Self::Point => "Click in the workspace",
             Self::Segment => "Click a second point to complete the segment",
             Self::Circle => "Click to set the radius end-point",
             Self::Line => "Click a second point to define the line direction",
@@ -104,7 +104,7 @@ impl Editor {
         self.scene.clear();
         self.pending_point = None;
         self.elements.clear();
-        "Canvas cleared".to_string()
+        "Workspace cleared".to_string()
     }
 
     pub fn click(&mut self, x: f64, y: f64, style: Style) -> String {
