@@ -26,11 +26,14 @@ const ctx = canvas.getContext("2d");
 const container = document.getElementById("canvas-container");
 const statusEl = document.getElementById("status");
 const elementListEl = document.getElementById("element-list");
+let scene;
 
 function resizeCanvas() {
   canvas.width = container.clientWidth;
   canvas.height = container.clientHeight;
-  render();
+  if (scene) {
+    render();
+  }
 }
 
 window.addEventListener("resize", resizeCanvas);
@@ -38,9 +41,9 @@ resizeCanvas();
 
 // ─── State ──────────────────────────────────────────────────────────────────
 
-let scene = new Scene(canvas.width, canvas.height);
+scene = new Scene(canvas.width, canvas.height);
 let tool = "point"; // 'point' | 'segment' | 'circle' | 'line'
-let pendingPoint = null; // first click while drawing a two-click shape
+let pendingPoint = null; // first click while drawing a two-click shape: {x, y}
 let elements = []; // plain JS records for the sidebar
 
 // ─── Tool buttons ───────────────────────────────────────────────────────────
@@ -95,11 +98,19 @@ function currentStyle() {
   );
 }
 
+function makeStyle(stroke, fill, strokeWidth) {
+  return new Style(
+    new Color(stroke.r, stroke.g, stroke.b, stroke.a),
+    new Color(fill.r, fill.g, fill.b, fill.a),
+    strokeWidth
+  );
+}
+
 // ─── Canvas interaction ─────────────────────────────────────────────────────
 
 function canvasPoint(e) {
   const rect = canvas.getBoundingClientRect();
-  return new Point(e.clientX - rect.left, e.clientY - rect.top);
+  return { x: e.clientX - rect.left, y: e.clientY - rect.top };
 }
 
 canvas.addEventListener("click", (e) => {
@@ -107,7 +118,7 @@ canvas.addEventListener("click", (e) => {
   const style = currentStyle();
 
   if (tool === "point") {
-    scene.add_point(p, style);
+    scene.add_point(new Point(p.x, p.y), style);
     elements.push({ type: "Point", label: `(${p.x.toFixed(1)}, ${p.y.toFixed(1)})` });
     updateSidebar();
     render();
@@ -132,7 +143,7 @@ canvas.addEventListener("click", (e) => {
   pendingPoint = null;
 
   if (tool === "segment") {
-    const seg = new Segment(p1, p2);
+    const seg = new Segment(new Point(p1.x, p1.y), new Point(p2.x, p2.y));
     scene.add_segment(seg, style);
     elements.push({
       type: "Segment",
@@ -140,11 +151,11 @@ canvas.addEventListener("click", (e) => {
     });
   } else if (tool === "circle") {
     const radius = Math.hypot(p2.x - p1.x, p2.y - p1.y);
-    const circle = new Circle(p1, radius);
+    const circle = new Circle(new Point(p1.x, p1.y), radius);
     scene.add_circle(circle, style);
     elements.push({ type: "Circle", label: `r=${radius.toFixed(1)} @ (${p1.x.toFixed(1)},${p1.y.toFixed(1)})` });
   } else if (tool === "line") {
-    const line = new Line(p1, p2);
+    const line = new Line(new Point(p1.x, p1.y), new Point(p2.x, p2.y));
     scene.add_line(line, 1, style);
     elements.push({
       type: "Line",
@@ -317,10 +328,12 @@ function setStatus(msg) {
 function loadDemoScene() {
   const w = canvas.width;
   const h = canvas.height;
-
-  const blue = new Style(new Color(100, 180, 255, 255), new Color(60, 80, 200, 40), 1.5);
-  const gold = new Style(new Color(255, 200, 60, 255), new Color(200, 150, 0, 30), 1.5);
-  const white = new Style(new Color(220, 220, 255, 220), new Color(0, 0, 0, 0), 1);
+  const blueStroke = { r: 100, g: 180, b: 255, a: 255 };
+  const blueFill = { r: 60, g: 80, b: 200, a: 40 };
+  const goldStroke = { r: 255, g: 200, b: 60, a: 255 };
+  const goldFill = { r: 200, g: 150, b: 0, a: 30 };
+  const whiteStroke = { r: 220, g: 220, b: 255, a: 220 };
+  const transparent = { r: 0, g: 0, b: 0, a: 0 };
 
   // Vesica Piscis – two overlapping circles sharing a radius
   const cx = w / 2;
@@ -329,17 +342,23 @@ function loadDemoScene() {
 
   const c1 = new Circle(new Point(cx - r / 2, cy), r);
   const c2 = new Circle(new Point(cx + r / 2, cy), r);
-  scene.add_circle(c1, blue);
-  scene.add_circle(c2, gold);
+  scene.add_circle(c1, makeStyle(blueStroke, blueFill, 1.5));
+  scene.add_circle(c2, makeStyle(goldStroke, goldFill, 1.5));
 
   // Centre points
-  scene.add_point(new Point(cx - r / 2, cy), white);
-  scene.add_point(new Point(cx + r / 2, cy), white);
+  scene.add_point(
+    new Point(cx - r / 2, cy),
+    makeStyle(whiteStroke, transparent, 1)
+  );
+  scene.add_point(
+    new Point(cx + r / 2, cy),
+    makeStyle(whiteStroke, transparent, 1)
+  );
 
   // Connecting segment
   scene.add_segment(
     new Segment(new Point(cx - r / 2, cy), new Point(cx + r / 2, cy)),
-    white
+    makeStyle(whiteStroke, transparent, 1)
   );
 
   elements.push({ type: "Circle", label: `Vesica (left)  r=${r.toFixed(1)}` });
