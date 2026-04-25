@@ -299,7 +299,7 @@ function buildStandaloneSvg() {
   const sceneMarkup = sceneEl.innerHTML;
 
   return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="${SVG_NS}" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
+<svg xmlns="${SVG_NS}" viewBox="0 0 ${width} ${height}" width="100%" height="100%" preserveAspectRatio="none" style="display:block;width:100vw;height:100vh;background:#0d0d1a">
   <defs>
     <pattern id="polaris-grid" width="40" height="40" patternUnits="userSpaceOnUse">
       <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a1a30" stroke-width="1"/>
