@@ -21,7 +21,7 @@ Recommend the user's next unit of work. This repo is advisory-only ([[advisory-m
    - The exact failing test(s) to write first — names, assertions, fixtures.
    - The minimal implementation to make them pass.
    - The CI job(s) that will verify it.
-   - The documentation step (`/document-change`).
+   - The documentation step (`/document`).
 4. **Flag blockers** — missing decisions, unclear requirements, or dependencies. If a decision is the user's to make, present the options with a recommendation.
 
 ## Output format

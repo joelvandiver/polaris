@@ -1,5 +1,5 @@
 ---
-name: document-change
+name: document
 description: Checklist for documenting a completed change — what/why, behavior changes, test evidence, CI verification, ops impact, decisions, and follow-ups. Invoke after finishing any change, before considering it done.
 ---
 

@@ -2,7 +2,7 @@
 
 **Decisions** (2026-07-18): TypeScript/React UI + Rust WASM geometry kernel; SVG rendering; MVP scope is classic constructions (points, lines, segments, circles, intersections, live drag). See ADR-001 (to be written in M0).
 
-**Standards**: every step follows TDD (Red → Green → Refactor), full unit + integration coverage, CI-verifiable, documented per `/document-change`.
+**Standards**: every step follows TDD (Red → Green → Refactor), full unit + integration coverage, CI-verifiable, documented per `/document`.
 
 ## Architecture
 
@@ -109,4 +109,4 @@ Measurements (length/angle/area) · labels & styling · perpendicular/parallel/b
 
 ## Definition of done (every task)
 
-tests written first → tests pass → CI green → change documented (`/document-change`).
+tests written first → tests pass → CI green → change documented (`/document`).

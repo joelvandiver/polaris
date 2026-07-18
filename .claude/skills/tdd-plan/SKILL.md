@@ -18,7 +18,7 @@ For each unit of work, order the steps exactly like this:
 2. **Green** — describe the minimal implementation that makes the tests pass.
 3. **Refactor** — note cleanups to apply once green, protected by the tests.
 4. **CI** — name the CI check(s) that verify this change. If no check covers it, add a plan step to create one. Nothing counts as verifiable unless CI proves it.
-5. **Document** — end every plan with a documentation step; use `/document-change` for the checklist.
+5. **Document** — end every plan with a documentation step; use `/document` for the checklist.
 
 ## Rules
 
