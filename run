@@ -3,7 +3,7 @@
 help=$(cat << EOF
 usage [run <command>]
 watch   start tests in watch mode
-clean   format and clippy fix
+ci      run ci commands
 EOF
 )
 
@@ -12,9 +12,10 @@ shift
 
 case "$cmd" in
     watch) cargo watch -x run ;;
-    clean)
-        cargo fmt
-        cargo clippy -- -D warnings
+    ci)
+        cargo fmt --all
+        cargo clippy --workspace --all-targets -- -D warnings
+        cargo test --workspace
         ;;
     *) echo "$help"
 esac
