@@ -1,0 +1,20 @@
+#!/bin/bash
+
+help=$(cat << EOF
+usage [run <command>]
+watch   start tests in watch mode
+clean   format and clippy fix
+EOF
+)
+
+cmd=$1
+shift
+
+case "$cmd" in
+    watch) cargo watch -x run ;;
+    clean)
+        cargo fmt
+        cargo clippy -- -D warnings
+        ;;
+    *) echo "$help"
+esac
