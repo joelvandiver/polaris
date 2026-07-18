@@ -4,11 +4,12 @@ Plan: [docs/plans/001-mvp-roadmap.md](docs/plans/001-mvp-roadmap.md). A task is 
 
 ## M0 — Walking skeleton + CI  ← current
 
-- [ ] Cargo workspace with `crates/polaris-core` (failing `distance` test first)
+- [x] Cargo workspace with `crates/polaris-core` (failing `distance` test first)
+- [x] GitHub Actions `rust` job: fmt check, clippy `-D warnings`, tests
 - [ ] `crates/polaris-wasm` + wasm-pack build
 - [ ] `web/` Vite + React + TS scaffold (failing Vitest wasm-import test first)
 - [ ] Playwright smoke test: SVG canvas renders
-- [ ] GitHub Actions: `rust`, `wasm`, `web`, `e2e` jobs, all required
+- [ ] GitHub Actions `wasm`, `web`, `e2e` jobs (added with their features); make all four required checks on `main`
 - [ ] ADR-001 architecture; README quickstart
 
 ## M1 — Geometry kernel
