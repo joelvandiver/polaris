@@ -44,4 +44,6 @@ Plan: [docs/plans/001-mvp-roadmap.md](docs/plans/001-mvp-roadmap.md). A task is 
 
 ## M5 — Post-MVP backlog
 
+- [ ] mdBook docs site under `docs/`, published to GitHub Pages from CI (`docs` job: `mdbook build` + `mdbook test`; deploy via `actions/deploy-pages`)
+
 Measurements · labels/styles · perpendicular/parallel/bisector · export SVG/PNG · GitHub Pages deploy · traces/loci · constraint solver
