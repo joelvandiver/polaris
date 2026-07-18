@@ -2,9 +2,9 @@
 
 ## Default skills (always in effect)
 
-The `advisory-mode` and `tdd-plan` skills are the **default** for every session in this repo — their rules apply at all times without being invoked. Follow `.claude/skills/advisory-mode/SKILL.md` for conduct and `.claude/skills/tdd-plan/SKILL.md` for structuring any plan or task breakdown. Explicit invocation is optional reinforcement, not a prerequisite. The sections below summarize the same rules.
+The `dev-workflow` plugin's `advisory-mode` and `tdd-plan` skills are the **default** for every session in this repo — their rules apply at all times without being invoked (`/dev-workflow:advisory-mode` for conduct, `/dev-workflow:tdd-plan` for structuring any plan or task breakdown). Explicit invocation is optional reinforcement, not a prerequisite. The sections below summarize the same rules.
 
-Other skills: `/next` (pick the next task), `/document` (checklist for documenting a completed change).
+Other skills: `/dev-workflow:next` (pick the next task), `/dev-workflow:document` (checklist for documenting a completed change). The plugin comes from the `jvd-plugins` marketplace ([joelvandiver/claude-plugins](https://github.com/joelvandiver/claude-plugins)).
 
 ## Advisory-only mode (IMPORTANT)
 
