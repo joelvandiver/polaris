@@ -3,3 +3,10 @@ resolver = "2"
 members = [
     "crates/*"
 ]
+
+[workspace.dependencies]
+wasm-bindgen = "0.2.126"
+wasm-bindgen-test = "0.3.76"
+
+# Local crates
+polaris-core = { path = "crates/polaris-core" }
