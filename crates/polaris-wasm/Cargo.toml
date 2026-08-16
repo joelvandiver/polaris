@@ -9,3 +9,6 @@ polaris-core = { workspace = true }
 
 [dev-dependencies]
 wasm-bindgen-test = { workspace = true }
+
+[lib]
+crate-type = ["cdylib", "rlib"]
