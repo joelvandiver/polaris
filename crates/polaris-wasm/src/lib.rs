@@ -1,9 +1,9 @@
-use polaris_core::{self, Point};
+use polaris_core::{self, geometry};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub fn distance(ax: f64, ay: f64, bx: f64, by: f64) -> f64 {
-    polaris_core::distance(&Point { x: ax, y: ay }, &Point { x: bx, y: by })
+    geometry::distance(&geometry::Point { x: ax, y: ay }, &geometry::Point { x: bx, y: by })
 }
 
 #[cfg(test)]
