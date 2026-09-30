@@ -1,4 +1,4 @@
-use polaris_core::{self, geometry};
+use polaris_math::geometry;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]

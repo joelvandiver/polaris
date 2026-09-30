@@ -158,10 +158,14 @@ name = "polaris-core"
 version = "0.1.0"
 
 [[package]]
+name = "polaris-math"
+version = "0.1.0"
+
+[[package]]
 name = "polaris-wasm"
 version = "0.1.0"
 dependencies = [
- "polaris-core",
+ "polaris-math",
  "wasm-bindgen",
  "wasm-bindgen-test",
 ]
