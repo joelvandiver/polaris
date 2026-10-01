@@ -1,3 +1,1 @@
-pub struct NaturalNumber {
-    
-}
+pub struct NaturalNumber {}

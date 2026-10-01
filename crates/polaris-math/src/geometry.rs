@@ -18,7 +18,7 @@ pub struct Segment {
     pub point_2: Point,
 }
 
-// pub fn 
+// pub fn
 
 #[cfg(test)]
 mod tests {
