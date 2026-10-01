@@ -29,4 +29,4 @@ jobs:
           targets: wasm32-unknown-unknown
       - uses: Swatinem/rust-cache@v2
       - name: Build core + syntax for wasm32
-        run: cargo build -p pulsar-core -p pulsar-syntax --target wasm32-unknown-unknown
+        run: cargo build -p polaris-math -p polaris-wasm --target wasm32-unknown-unknown
