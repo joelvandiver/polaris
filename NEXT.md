@@ -1,33 +1,47 @@
-# Next: get CI green
+# Next: Get CI green (~10 min)
 
-CI on `main` is red right now, so the nextest switch has nothing to land on. Fix these first, in this order.
+**Why:** `main` fails CI in two places: formatting, and the wasm job builds crates that don't exist. Fix that before adding nextest, or you won't be able to tell whether nextest works.
 
-1. **Format check fails.** `cargo fmt --all --check` flags these files:
-   - `crates/polaris-math/src/geometry.rs`: trailing space after `// pub fn`
-   - `crates/polaris-math/src/lib.rs`: module order
-   - `crates/polaris-math/src/number.rs`: empty struct body
+## Steps
 
-   Run `cargo fmt --all`. The `./run ci` script runs `cargo fmt --all` without `--check`, so it fixes formatting locally and hides the drift. Change it to `--check` so it matches CI.
-
-2. **The wasm-check job builds crates that don't exist.** `.github/workflows/ci.yml`, last line:
-   ```yaml
-   - name: Build math + wasm for wasm32
-     run: cargo build -p polaris-math -p polaris-wasm --target wasm32-unknown-unknown
+1. **Reproduce the failure ("red").** The wasm job fails because the crate names are wrong:
+   ```sh
+   cargo build -p pulsar-core -p pulsar-syntax --target wasm32-unknown-unknown
+   # error: package ID specification `pulsar-core` did not match any packages
    ```
-   (It currently builds `pulsar-core` and `pulsar-syntax`.)
+   (If the target is missing: `rustup target add wasm32-unknown-unknown`.)
 
-3. **Then do the TODO: add nextest to CI.** In the `rust` job:
+2. **Fix the wasm job.** In `.github/workflows/ci.yml`, replace the last step (lines 31–32):
    ```yaml
-   - uses: taiki-e/install-action@nextest
-   - name: Test
-     run: |
-       cargo nextest run --workspace
-       cargo test --workspace --doc
+         - name: Build math + wasm for wasm32
+           run: cargo build -p polaris-math -p polaris-wasm --target wasm32-unknown-unknown
    ```
-   nextest doesn't run doctests, so keep the `--doc` line. Make the same change in `./run ci`.
 
-## Notes for later (not now)
-- `polaris-wasm/src/main.rs` is a leftover hello-world. Delete it; a cdylib crate doesn't need a binary.
-- The `wasm_bindgen_test` in `polaris-wasm` won't run under `cargo test` on the host target. It needs `wasm-pack test --node` or something similar in CI to actually run.
-- `polaris-core` is still the `add()` template code. Decide what it's for (the construction graph or scene model?) or remove it.
-- `Line` and `Segment` have the same fields, so a degenerate line (`point_1 == point_2`) isn't ruled out. Settle this before building on them. The roadmap's next primitive is `Circle`.
+3. **Make `./run ci` check formatting the way CI does.** In `run`, line 16:
+   ```sh
+           cargo fmt --all --check
+   ```
+   Right now the script reformats files instead of failing, which is how the format drift got past you.
+
+4. **Verify locally ("green"):**
+   ```sh
+   ./run ci
+   cargo build -p polaris-math -p polaris-wasm --target wasm32-unknown-unknown
+   ```
+
+5. **Commit and push.** Include the formatting changes already sitting in your working tree:
+   ```sh
+   git add .github/workflows/ci.yml run crates/
+   git commit -m "Fix CI: correct wasm crate names, fmt --check in run script"
+   git push
+   ```
+
+## Done when
+- [ ] `./run ci` passes with `--check`
+- [ ] The wasm32 build of `polaris-math` and `polaris-wasm` succeeds
+- [ ] Both jobs (`rust` and `wasm-check`) are green on GitHub Actions
+
+## On deck
+- **Add nextest to CI** (the TODO item): add `taiki-e/install-action@nextest`, then run `cargo nextest run --workspace` and `cargo test --workspace --doc`. Make the same change in `./run ci`.
+- **Delete `crates/polaris-wasm/src/main.rs`.** It's a leftover hello-world; the cdylib crate doesn't need a binary.
+- **Start `Circle` in `polaris-math::geometry`.** Write tests first: `Circle { center, radius }`, `contains(&Point)`, and reject a negative radius.

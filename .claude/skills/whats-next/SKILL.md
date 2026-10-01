@@ -1,6 +1,6 @@
 ---
 name: whats-next
-description: Recommend the single next task in Polaris, scoped to about 10 minutes of work, and write it to NEXT.md. Use when the user asks "what's next", starts a session, or finishes a task.
+description: Recommend the single next task in Polaris, scoped to about 10 minutes of work, and print it in chat. Use when the user asks "what's next", starts a session, or finishes a task.
 ---
 
 # What's next (10-minute tasks)
@@ -21,9 +21,9 @@ Advisory mode applies (see CLAUDE.md). You recommend and spec the task; the user
    - The failing test(s) to write first: names and assertions as a snippet
    - The minimal implementation: file, location and snippet
    - The command that proves it's done (`cargo test -p polaris-math`, etc.)
-5. **Write `NEXT.md`** at the repo root, overwriting the old one. The user can't copy from the terminal, so the full spec goes there.
+5. **Print the full spec in chat.** Don't write or touch `NEXT.md`.
 
-## NEXT.md format
+## Chat format
 
 ```
 # Next: <task> (~10 min)
@@ -45,4 +45,4 @@ Advisory mode applies (see CLAUDE.md). You recommend and spec the task; the user
 
 ## Reply in chat
 
-Name the task and point to `NEXT.md`, in 1–3 lines. Don't survey the options.
+The spec above is the whole reply. Don't survey the options.

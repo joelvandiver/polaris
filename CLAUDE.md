@@ -11,4 +11,4 @@ This repository is permanently in **advisory mode**. At the start of every sessi
 
 ## What's next
 
-To recommend the next task, use the project `whats-next` skill. It picks a task that takes about 10 minutes and writes it to `NEXT.md`.
+To recommend the next task, use the project `whats-next` skill. It picks a task that takes about 10 minutes and prints it in chat (it doesn't write `NEXT.md`).
