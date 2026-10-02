@@ -162,6 +162,13 @@ name = "polaris-math"
 version = "0.1.0"
 
 [[package]]
+name = "polaris-tui"
+version = "0.1.0"
+dependencies = [
+ "polaris-math",
+]
+
+[[package]]
 name = "polaris-wasm"
 version = "0.1.0"
 dependencies = [
