@@ -1,5 +1,5 @@
 ---
-name: whats-next
+name: next
 description: Recommend the single next task in Polaris, scoped to about 10 minutes of work, and print it in chat. Use when the user asks "what's next", starts a session, or finishes a task.
 ---
 
