@@ -13,9 +13,11 @@ shift
 case "$cmd" in
     watch) cargo watch -x run ;;
     ci)
+        # Autofix formatting issues
         cargo fmt --all
         cargo clippy --workspace --all-targets -- -D warnings
-        cargo test --workspace
+        cargo nextest run --workspace
+        cargo test --workspace --doc
         ;;
     *) echo "$help"
 esac

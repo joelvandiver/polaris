@@ -18,8 +18,11 @@ jobs:
         run: cargo fmt --all --check
       - name: Clippy
         run: cargo clippy --workspace --all-targets -- -D warnings
+      - uses: taiki-e/install-action@nextest
       - name: Test
-        run: cargo test --workspace
+        run: cargo nextest run --workspace
+      - name: DocTests
+        run: cargo test --workspace --doc
   wasm-check:
     runs-on: ubuntu-latest
     steps:
