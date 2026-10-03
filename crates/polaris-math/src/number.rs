@@ -42,13 +42,14 @@ impl TryFrom<WholeNumber> for NaturalNumber {
     type Error = String;
 
     fn try_from(w: WholeNumber) -> Result<Self, Self::Error> {
-        Self::new(w.get()).ok_or_else(|| "0 is not a natural number".to_string())
+        Self::new(w.get()).ok_or_else(|| "0 is not a natural number.".to_string())
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use proptest::prelude::*;
 
     #[test]
     fn natural_rejects_zero_and_negatives() {
@@ -75,7 +76,12 @@ mod tests {
         assert_eq!(WholeNumber::new(u64::MAX).get(), u64::MAX);
     }
 
-    use proptest::prelude::*;
+    #[test]
+    fn whole_to_natural_fails() {
+        let w = WholeNumber(0);
+        let result = NaturalNumber::try_from(w);
+        assert_eq!(result, Err("0 is not a natural number.".to_string()))
+    }
 
     proptest! {
         #[test]
