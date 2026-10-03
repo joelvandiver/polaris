@@ -11,7 +11,7 @@ cmd=$1
 shift
 
 case "$cmd" in
-    watch) cargo watch -x run ;;
+    watch) cargo watch -x 'nextest run' ;;
     ci)
         # Autofix formatting issues
         cargo fmt --all
