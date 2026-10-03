@@ -3,6 +3,12 @@
 ## Mathematics
 
 - [ ] Build number theory module
+  - [ ] RationalNumber
+  - [ ] IrrationalNumber
+  - [ ] RealNumber
+  - [ ] ImaginaryNumber
+  - [ ] ComplexNumber
+  - [ ] ...
 
 ## Task
 
