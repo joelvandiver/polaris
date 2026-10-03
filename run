@@ -4,6 +4,7 @@ help=$(cat << EOF
 usage [run <command>]
 watch   start tests in watch mode
 ci      run ci commands
+tui     run the tui
 EOF
 )
 
@@ -19,5 +20,6 @@ case "$cmd" in
         cargo nextest run --workspace
         cargo test --workspace --doc
         ;;
+    tui) cargo run -p polaris-tui -- "$@" ;;
     *) echo "$help"
 esac
