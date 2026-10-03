@@ -8,6 +8,8 @@ argument-hint: "[math|task]"
 
 Advisory mode applies (see CLAUDE.md). You recommend and spec the task; the user does it.
 
+**Suggest, don't write the code.** No fenced code blocks of Rust, tests or TOML. Describe what to write and where, and name things inline (a function name, a signature like `gcd(a: NaturalNumber, b: NaturalNumber) -> NaturalNumber`, a crate, a trait, a macro like `prop_assert_eq!`). The user writes the code.
+
 ## Item types
 
 `TODO.md` groups items under `##` headings. The heading is the item's type:
@@ -35,14 +37,14 @@ If `TODO.md` gains a new `##` heading, treat it as a new type named after the he
 
    **math**
    - The definition or property in one sentence (for example, "gcd(a, b) is the largest d dividing both").
-   - Failing tests first: known values, edge cases (0, 1, negatives, equal inputs, overflow bounds), and one identity checked over a small range (for example, `gcd(a, b) * lcm(a, b) == a * b` for `1..=50`).
-   - The minimal implementation in `crates/polaris-math`: module, signature, snippet. Name the algorithm (Euclid, sieve, etc.).
+   - Failing tests first, as a list of test names, each with the property or value it should assert in words: known values, edge cases (0, 1, negatives, equal inputs, overflow bounds), and one identity (for example, "gcd(a, b) · lcm(a, b) = a · b"), as a property test where the crate has one set up.
+   - The minimal implementation in `crates/polaris-math`: module, signature, and the approach in a sentence or two. Name the algorithm (Euclid, sieve, etc.).
    - Verify: `cargo test -p polaris-math`.
 
    **task**
    - The behavior change in one sentence.
-   - Failing tests first, using the crate's test tooling (`ratatui::backend::TestBackend` for `polaris-tui`, `wasm-bindgen-test` for `polaris-wasm`, plain unit tests elsewhere).
-   - The minimal implementation: file, location, snippet, plus any `Cargo.toml` dependency line.
+   - Failing tests first, as a list of test names with what each asserts in words, using the crate's test tooling (`ratatui::backend::TestBackend` for `polaris-tui`, `wasm-bindgen-test` for `polaris-wasm`, plain unit tests elsewhere).
+   - The minimal implementation: file, location, the types and functions involved, and the approach in a sentence or two. Name any dependency to add (crate name and which `Cargo.toml` section) instead of writing the line.
    - Verify: the crate's test command, plus a manual check (run the app, open the page) when the item is about UI or "verify".
 
 6. **Print the full spec in chat.** Don't write or touch `NEXT.md`.
@@ -55,8 +57,9 @@ If `TODO.md` gains a new `##` heading, treat it as a new type named after the he
 **Why:** one sentence.
 
 ## Steps
-1. Write the failing test ... (snippet)
-2. Implement ... (snippet)
+1. Write the failing tests in <file>:
+   - `<test_name>`: <what it asserts>
+2. Implement in <file>: <signature>, <approach>
 3. Verify: `<command>`
 
 ## Done when
@@ -71,4 +74,4 @@ On deck stays within the requested type. With no type, list the next item of eac
 
 ## Reply in chat
 
-The spec above is the whole reply. Don't survey the options.
+The spec above is the whole reply. Don't survey the options. If the user asks for the code afterwards, give it then.
