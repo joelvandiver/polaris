@@ -89,7 +89,7 @@ mod tests {
             let nat = NaturalNumber::new(n).unwrap();
             prop_assert_eq!(WholeNumber::from(nat).get(), n);
         }
-        
+
         #[test]
         fn whole_to_natural_round_trips(n in 1..=u64::MAX) {
             let w = WholeNumber::new(n);
