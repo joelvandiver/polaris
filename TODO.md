@@ -9,6 +9,8 @@
   - [ ] ImaginaryNumber
   - [ ] ComplexNumber
   - [ ] ...
+- [ ] Build an algebra problem generator like my teaching days
+- [ ] Build a calculator
 
 ## Task
 
