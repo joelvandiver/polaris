@@ -3,6 +3,7 @@
 ## Mathematics
 
 - [ ] Build number theory module
+  - [ ] Integer
   - [ ] RationalNumber
   - [ ] IrrationalNumber
   - [ ] RealNumber

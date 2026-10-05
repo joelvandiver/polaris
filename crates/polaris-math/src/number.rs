@@ -1,6 +1,6 @@
 use std::num::NonZeroU64;
 
-/// A natural number, N = {1, 2, 3, ...}
+/// A natural number, ℕ = {1, 2, 3, ...}
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct NaturalNumber(NonZeroU64);
 
@@ -46,6 +46,42 @@ impl TryFrom<WholeNumber> for NaturalNumber {
     }
 }
 
+/// An integer, ℤ = {..., -2, -1, 0, 1, 2, ...}
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct Integer(i64);
+
+impl Integer {
+    pub const fn new(n: i64) -> Self {
+        Self(n)
+    }
+
+    pub const fn get(self) -> i64 {
+        self.0
+    }
+}
+
+impl TryFrom<Integer> for WholeNumber {
+    type Error = String;
+
+    fn try_from(i: Integer) -> Result<Self, Self::Error> {
+        let i = i.get();
+        // TODO: convert to match and handle all cases.
+        if i > 0 {
+            Ok(WholeNumber(i as u64))
+        } else {
+            // TODO: Assert error.
+            // Err("".to_string())
+            todo!()
+        }
+    }
+}
+
+/// A rational number, ℚ =
+// #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+// pub struct RationalNumber(u64, u64);
+/// A real number, ℝ
+/// A complex number, ℂ
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -82,6 +118,16 @@ mod tests {
         let result = NaturalNumber::try_from(w);
         assert_eq!(result, Err("0 is not a natural number.".to_string()))
     }
+
+    #[test]
+    fn max_positive_integer_to_whole_succeeds() {
+        let i = Integer(i64::MAX);
+        let result = WholeNumber::try_from(i);
+        assert!(result.is_ok());
+        assert_eq!(result.unwrap().get(), i64::MAX as u64);
+    }
+
+    // TODO: continue...
 
     proptest! {
         #[test]
