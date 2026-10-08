@@ -128,25 +128,29 @@ mod tests {
     }
 
     // TODO: continue...
-
+    // 
+    
     proptest! {
         #[test]
         fn from_natural_to_whole_succeeds(n in 1..=u64::MAX) {
             let nat = NaturalNumber::new(n).unwrap();
             prop_assert_eq!(WholeNumber::from(nat).get(), n);
         }
-
+        
         #[test]
         fn whole_to_natural_round_trips(n in 1..=u64::MAX) {
             let w = WholeNumber::new(n);
             let nat = NaturalNumber::try_from(w).unwrap();
             prop_assert_eq!(WholeNumber::from(nat), w);
         }
-
+        
         #[test]
         fn conversion_preserves_order(a in 1..=u64::MAX, b in 1..=u64::MAX) {
             let (x, y) = (NaturalNumber::new(a).unwrap(), NaturalNumber::new(b).unwrap());
             prop_assert_eq!(x.cmp(&y), WholeNumber::from(x).cmp(&WholeNumber::from(y)));
         }
     }
+    // TODO: positive_integers_to_whole_succeeds
+    //          Get absolute value of integer before converting to Whole Number
+    // TODO: negative_integers_to_whole_fails
 }
