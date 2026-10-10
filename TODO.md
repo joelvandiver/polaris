@@ -3,8 +3,6 @@
 ## Mathematics
 
 - [ ] Build number theory module
-  - [ ] Split number module into one file per type
-    - Refer to claude bookmark.
   - [ ] Return error for negative Integer to WholeNumber
   - [ ] Map Integer zero to WholeNumber zero
   - [ ] Add Integer to NaturalNumber conversion
