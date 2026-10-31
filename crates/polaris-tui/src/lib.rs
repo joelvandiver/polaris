@@ -1,3 +1,7 @@
+// TODO: Update tui
+  // TODO: Render input box and result with ratatui
+  // TODO: Add event loop for input, Enter, and quit
+  
 use polaris_math::geometry::{Point, distance};
 
 /// Parse "ax ay bx by" and return the distance between the two points.

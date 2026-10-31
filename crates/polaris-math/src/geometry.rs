@@ -1,3 +1,8 @@
+// TODO: Build geometry module
+  // TODO: Add slope of a Line
+  // TODO: Add length of a Segment
+  // TODO: Add midpoint of a Segment
+  // TODO: Add intersection of two Lines
 pub struct Point {
     pub x: f64,
     pub y: f64,

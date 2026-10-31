@@ -1,3 +1,6 @@
+// TODO: Add From<Integer> for RationalNumber
+// TODO: Convert all Self::Errors to anyhow (?).
+
 use super::integer::Integer;
 use super::natural::NaturalNumber;
 use super::whole::WholeNumber;
@@ -17,19 +20,42 @@ impl TryFrom<WholeNumber> for NaturalNumber {
     }
 }
 
+impl TryFrom<Integer> for NaturalNumber {
+    type Error = String;
+
+    fn try_from(i: Integer) -> Result<Self, Self::Error> {
+        let i = i.get();
+
+        if i > 0 {
+            return Ok(NaturalNumber::new(i as u64).unwrap());
+        }
+        return Err(format!("The number is not natural: {i}"));
+    }
+}
+
 impl TryFrom<Integer> for WholeNumber {
     type Error = String;
 
     fn try_from(i: Integer) -> Result<Self, Self::Error> {
         let i = i.get();
-        // TODO: convert to match and handle all cases.
-        if i > 0 {
+        if i >= 0 {
             Ok(WholeNumber::new(i as u64))
         } else {
-            // TODO: Assert error.
-            // Err("".to_string())
-            todo!()
+            Err(format!("The number is not a whole number: {i}"))
         }
+    }
+}
+
+impl TryFrom<WholeNumber> for Integer {
+    type Error = String;
+
+    fn try_from(w: WholeNumber) -> Result<Self, Self::Error> {
+        let w = w.get();
+        let m = i64::MAX as u64;
+        if w > m {
+            return Err(format!("The whole number is outside of the supported range for a positive integer: {w}"));
+        }
+        Ok(Integer::new(w as i64))
     }
 }
 
@@ -44,45 +70,107 @@ mod tests {
     use super::*;
     use proptest::prelude::*;
 
-    #[test]
-    fn whole_to_natural_fails() {
-        let w = WholeNumber::new(0);
-        let result = NaturalNumber::try_from(w);
-        assert_eq!(result, Err("0 is not a natural number.".to_string()))
-    }
+    mod natural_to_whole {
+        use super::*;
 
-    #[test]
-    fn max_positive_integer_to_whole_succeeds() {
-        let i = Integer::new(i64::MAX);
-        let result = WholeNumber::try_from(i);
-        assert!(result.is_ok());
-        assert_eq!(result.unwrap().get(), i64::MAX as u64);
-    }
-
-    // TODO: continue...
-    //
-
-    proptest! {
-        #[test]
-        fn from_natural_to_whole_succeeds(n in 1..=u64::MAX) {
-            let nat = NaturalNumber::new(n).unwrap();
-            prop_assert_eq!(WholeNumber::from(nat).get(), n);
-        }
-
-        #[test]
-        fn whole_to_natural_round_trips(n in 1..=u64::MAX) {
-            let w = WholeNumber::new(n);
-            let nat = NaturalNumber::try_from(w).unwrap();
-            prop_assert_eq!(WholeNumber::from(nat), w);
-        }
-
-        #[test]
-        fn conversion_preserves_order(a in 1..=u64::MAX, b in 1..=u64::MAX) {
-            let (x, y) = (NaturalNumber::new(a).unwrap(), NaturalNumber::new(b).unwrap());
-            prop_assert_eq!(x.cmp(&y), WholeNumber::from(x).cmp(&WholeNumber::from(y)));
+        proptest! {
+            #[test]
+            fn succeeds(n in 1..=u64::MAX) {
+                let nat = NaturalNumber::new(n).unwrap();
+                prop_assert_eq!(WholeNumber::from(nat).get(), n);
+            }
         }
     }
-    // TODO: positive_integers_to_whole_succeeds
-    //          Get absolute value of integer before converting to Whole Number
-    // TODO: negative_integers_to_whole_fails
+
+    mod whole_to_natural {
+        use super::*;
+        #[test]
+        fn fails_for_0() {
+            let w = WholeNumber::new(0);
+            let result = NaturalNumber::try_from(w);
+            assert_eq!(result, Err("0 is not a natural number.".to_string()))
+        }
+
+        proptest! {
+            #[test]
+            fn passes_for_positive(n in 1..=u64::MAX) {
+                let w = WholeNumber::new(n);
+                let nat = NaturalNumber::try_from(w).unwrap();
+                prop_assert_eq!(nat.get(), n);
+            }
+        }
+    }
+    
+    mod integer_to_natural {
+        use super::*;
+
+        #[test]
+        fn fail_on_0() {
+            let i = Integer::new(0);
+            let result = NaturalNumber::try_from(i);
+            assert_eq!(result, Err(String::from("The number is not natural: 0")));
+        }
+        proptest! {
+            #[test]
+            fn pass_for_positives(i in 1..i64::MAX) {
+                let int = Integer::new(i);
+                let result = NaturalNumber::try_from(int);
+                assert_eq!(result.unwrap().get(), i as u64);
+            }
+            #[test]
+            fn fail_for_negatives(i in i64::MIN..0) {
+                let int = Integer::new(i);
+                let result = NaturalNumber::try_from(int);
+                assert_eq!(result, Err(format!("The number is not natural: {i}")))
+            }
+        }
+    }
+
+    mod integer_to_whole {
+        use super::*;
+
+        #[test]
+        fn zero_to_whole_succeeds() {
+            let i = Integer::new(0);
+            let result = WholeNumber::try_from(i);
+            assert_eq!(result.unwrap().get(), 0)
+        }
+
+        proptest! {
+            #[test]
+            fn passes_for_positives(i in 1..i64::MAX) {
+                let int = Integer::new(i);
+                let result = WholeNumber::try_from(int);
+                assert_eq!(result.unwrap().get(), i as u64);
+            }
+            #[test]
+            fn fails_for_negatives(n in i64::MIN..0) {
+                let i = Integer::new(n);
+                let result = WholeNumber::try_from(i);
+                assert_eq!(
+                    result,
+                    Err(format!("The number is not a whole number: {n}"))
+                );
+            }
+        }
+    }
+    
+    mod whole_to_integer {
+        use super::*;
+
+        proptest! {
+            #[test]
+            fn fail_on_larger_than_i64_max(n in (i64::MAX as u64)+1..u64::MAX) {
+                let w = WholeNumber::new(n);
+                let result = Integer::try_from(w);
+                assert_eq!(result, Err(format!("The whole number is outside of the supported range for a positive integer: {w}")))
+            }
+            #[test]
+            fn pass_on_positive_iu64(n in 0..i64::MAX) {
+                let w = WholeNumber::new(n as u64);
+                let result = Integer::try_from(w);
+                assert_eq!(result.unwrap().get(), n);
+            }
+        }
+    }
 }

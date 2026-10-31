@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 /// A whole number, W = {0, 1, 2, 3, ...}
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct WholeNumber(u64);
@@ -9,6 +11,14 @@ impl WholeNumber {
 
     pub const fn get(self) -> u64 {
         self.0
+    }
+}
+
+// TODO: Impl Display for other number types.
+// TODO: Test Display below.
+impl Display for WholeNumber {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(format!("{}", self.get()).as_str())
     }
 }
 
