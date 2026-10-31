@@ -40,6 +40,5 @@ mod tests {
     // TODO: continue...
     //
 
-    proptest! {
-    }
+    proptest! {}
 }

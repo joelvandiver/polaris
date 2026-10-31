@@ -17,10 +17,8 @@ mod tests {
     // use super::*;
     use proptest::prelude::*;
 
-
     // TODO: continue...
     //
 
-    proptest! {
-    }
+    proptest! {}
 }

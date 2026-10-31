@@ -1,4 +1,3 @@
-
 /// A whole number, W = {0, 1, 2, 3, ...}
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct WholeNumber(u64);
@@ -12,7 +11,6 @@ impl WholeNumber {
         self.0
     }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -32,6 +30,5 @@ mod tests {
     // TODO: continue...
     //
 
-    proptest! {
-    }
+    proptest! {}
 }
