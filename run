@@ -3,7 +3,7 @@
 help=$(cat << EOF
 usage [run <command>]
 watch   start tests in watch mode
-ci      run ci commands
+ci      run ci fmt, clippy, nextest, and test commands
 tui     run the tui
 EOF
 )

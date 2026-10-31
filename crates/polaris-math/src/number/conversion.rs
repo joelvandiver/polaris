@@ -33,11 +33,11 @@ impl TryFrom<Integer> for WholeNumber {
     }
 }
 
-/// A rational number, ℚ =
+// A rational number, ℚ =
 // #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 // pub struct RationalNumber(u64, u64);
-/// A real number, ℝ
-/// A complex number, ℂ
+// A real number, ℝ
+// A complex number, ℂ
 
 #[cfg(test)]
 mod tests {
