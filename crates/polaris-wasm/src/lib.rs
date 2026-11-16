@@ -9,6 +9,11 @@ pub fn distance(ax: f64, ay: f64, bx: f64, by: f64) -> f64 {
     )
 }
 
+#[wasm_bindgen]
+pub fn greet(name: &str) -> String {
+    format!("Hello, {name}!")
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

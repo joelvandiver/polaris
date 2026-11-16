@@ -1,11 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import init, { greet } from '../pkg/polaris_wasm'
+
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
+
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [message, setMessage] = useState('loading wasm...')
+
+  useEffect(() => {
+    init().then(() => setMessage(greet('Polaris')))
+  }, [])
 
   return (
     <>
@@ -17,6 +25,7 @@ function App() {
         </div>
         <div>
           <h1>Get started</h1>
+          <h2>{message}</h2>
           <p>
             Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
           </p>
