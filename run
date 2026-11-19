@@ -5,6 +5,7 @@ usage [run <command>]
 watch   start tests in watch mode
 ci      run ci fmt, clippy, nextest, and test commands
 tui     run the tui
+wasm    build the wasm package into web/pkg
 EOF
 )
 
@@ -21,5 +22,6 @@ case "$cmd" in
         cargo test --workspace --doc
         ;;
     tui) cargo run -p polaris-tui -- "$@" ;;
+    wasm) wasm-pack build crates/polaris-wasm --target web --out-dir ../../web/pkg "$@" ;;
     *) echo "$help"
 esac

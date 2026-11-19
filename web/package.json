@@ -4,7 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "wasm": "cd .. && ./run wasm",
+    "predev": "npm run wasm",
     "dev": "vite",
+    "prebuild": "npm run wasm",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
