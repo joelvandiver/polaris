@@ -1,3 +1,5 @@
+use std::f64;
+
 // TODO: Build geometry module
 // TODO: Add slope of a Line
 // TODO: Add length of a Segment
@@ -18,15 +20,22 @@ pub struct Line {
     pub point_2: Point,
 }
 
+pub struct Circle {
+    pub radius: f64,
+}
+
 pub struct Segment {
     pub point_1: Point,
     pub point_2: Point,
 }
 
 pub struct Rectangle {
-    pub point: Point,
     pub width: f64,
     pub height: f64,
+}
+
+pub struct Square {
+    pub length: f64,
 }
 
 // pub fn
