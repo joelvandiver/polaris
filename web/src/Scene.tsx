@@ -26,6 +26,7 @@ export function Scene() {
         <line x1={view.x} y1={0} x2={view.x + view.w} y2={0} stroke="#ccc" vectorEffect="non-scaling-stroke" />
         <line x1={0} y1={view.y} x2={0} y2={view.y + view.h} stroke="#ccc" vectorEffect="non-scaling-stroke" />
 
+        <rect x={0} y={0} width={2} height={3} />
         {points.map((p , i) => {
           <circle key={i} cx={p.x} cy={p.y} r={0.15} fill="steelblue" />
         })}

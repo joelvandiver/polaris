@@ -1,8 +1,8 @@
 // TODO: Build geometry module
-  // TODO: Add slope of a Line
-  // TODO: Add length of a Segment
-  // TODO: Add midpoint of a Segment
-  // TODO: Add intersection of two Lines
+// TODO: Add slope of a Line
+// TODO: Add length of a Segment
+// TODO: Add midpoint of a Segment
+// TODO: Add intersection of two Lines
 pub struct Point {
     pub x: f64,
     pub y: f64,
@@ -21,6 +21,12 @@ pub struct Line {
 pub struct Segment {
     pub point_1: Point,
     pub point_2: Point,
+}
+
+pub struct Rectangle {
+    pub point: Point,
+    pub width: f64,
+    pub height: f64,
 }
 
 // pub fn
