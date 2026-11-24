@@ -3,9 +3,9 @@ use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub fn distance(ax: f64, ay: f64, bx: f64, by: f64) -> f64 {
-    geometry::distance(
-        &geometry::Point { x: ax, y: ay },
-        &geometry::Point { x: bx, y: by },
+    geometry::analytic::distance(
+        &geometry::analytic::Point { x: ax, y: ay },
+        &geometry::analytic::Point { x: bx, y: by },
     )
 }
 

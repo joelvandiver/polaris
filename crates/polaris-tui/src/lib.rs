@@ -1,8 +1,8 @@
 // TODO: Update tui
-  // TODO: Render input box and result with ratatui
-  // TODO: Add event loop for input, Enter, and quit
-  
-use polaris_math::geometry::{Point, distance};
+// TODO: Render input box and result with ratatui
+// TODO: Add event loop for input, Enter, and quit
+
+use polaris_math::geometry::analytic::{Point, distance};
 
 /// Parse "ax ay bx by" and return the distance between the two points.
 pub fn distance_from_input(input: &str) -> Result<f64, String> {

@@ -20,25 +20,10 @@ pub struct Line {
     pub point_2: Point,
 }
 
-pub struct Circle {
-    pub radius: f64,
-}
-
 pub struct Segment {
     pub point_1: Point,
     pub point_2: Point,
 }
-
-pub struct Rectangle {
-    pub width: f64,
-    pub height: f64,
-}
-
-pub struct Square {
-    pub length: f64,
-}
-
-// pub fn
 
 #[cfg(test)]
 mod tests {
