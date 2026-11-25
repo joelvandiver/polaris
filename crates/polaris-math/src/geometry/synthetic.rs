@@ -1,3 +1,5 @@
+// TODO: Consider converting to Hilbert-style incidence definition.
+
 /// Represents a location in a space.
 ///
 /// In Synthetic Geometry, the point is undefined.
@@ -39,6 +41,12 @@ pub struct Circle {
     pub center: Point,
     pub radius: f64,
 }
+
+// impl Circle {
+//     pub fn area(&self) -> f64 {
+//         std:: self.radius ^ 2
+//     }
+// }
 
 /// Represents a rectangle in a plane.
 ///
